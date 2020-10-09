@@ -13,19 +13,21 @@ const int FIRST_GRATER_THAN_SECOND = 0;
 void StringListInit(char*** head_node, const char* str) {
 	if (!*head_node) {
 		*head_node = (char**)calloc(NODE_SIZE, sizeof(char*));
+		if (*head_node) {
+			size_t size_of_str = strlen(str);
+			size_t size_of_str_memory = (size_of_str + DATA_NULL_TERMINATOR) * sizeof(char);
 
-		size_t size_of_str = strlen(str);
-		size_t size_of_str_memory = (size_of_str + DATA_NULL_TERMINATOR) * sizeof(char);
+			if (str) {
+				(*head_node)[NODE_DATA] = (char*)calloc(size_of_str_memory, sizeof(char));
+				memcpy((*head_node)[NODE_DATA], str, size_of_str_memory);
+				(*head_node)[NODE_DATA][size_of_str] = '\0';
+			}
+			if ((*head_node)[NODE_DATA]) {
 
-		(*head_node)[NODE_DATA] = (char*)calloc(size_of_str_memory, sizeof(char));
-
-		if ((*head_node)[NODE_DATA]) {
-			memcpy((*head_node)[NODE_DATA], str, size_of_str_memory);
-			(*head_node)[NODE_DATA][size_of_str] = '\0';
-
-			(*head_node)[NODE_PREV] = NULL;
-			(*head_node)[NODE_NEXT] = NULL;
-		}
+				(*head_node)[NODE_PREV] = NULL;
+				(*head_node)[NODE_NEXT] = NULL;
+			}
+		}		
 	}
 	else {
 		printf("List has already initialized\n");
