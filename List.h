@@ -270,7 +270,7 @@ void StringListRemoveDuplicates(char** head_node) {
 				node_to_remove_prev = (char**)head_node_inner[NODE_PREV];
 				node_to_remove_next = (char**)head_node_inner[NODE_NEXT];
 
-				head_node_inner = head_node_inner[NODE_NEXT];
+				head_node_inner = (char**)head_node_inner[NODE_NEXT];
 				if(node_to_remove_prev)	(char**)node_to_remove_prev[NODE_NEXT] = node_to_remove_next;
 				if(node_to_remove_next) (char**)node_to_remove_next[NODE_PREV] = node_to_remove_prev;
 
@@ -280,7 +280,7 @@ void StringListRemoveDuplicates(char** head_node) {
 				node_to_remove[NODE_DATA] = NULL;
 				free(node_to_remove);
 			}
-			else head_node_inner = head_node_inner[NODE_NEXT];
+			else head_node_inner = (char**)head_node_inner[NODE_NEXT];
 		}
 		head_node_inner = head_node;
 		head_node_upper = (char**)head_node_upper[NODE_NEXT];
